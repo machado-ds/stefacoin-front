@@ -1,1 +1,58 @@
-<p>cadastro works!</p>
+<div class="container mt-3">
+    <form>
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" aria-describedby="nomeHelp"
+                placeholder="Ex: Breno Machado">
+            <small id="emailHelp" class="form-text text-muted">Insira seu nome.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                placeholder="Ex: breno@email.com.br">
+            <small id="emailHelp" class="form-text text-muted">Insira seu endereço de email.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" class="form-control" aria-describedby="senhaHelp" id="senha" placeholder="Senha">
+            <small id="senhaHelp" class="form-text text-muted">Crie uma senha.</small>
+        </div>
+
+        <div class="form-group">
+            <h6>Eu sou um...</h6>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="alunoRadio" id="aluno" value="2"
+                    checked>
+                <label class="form-check-label" for="aluno">
+                    Aluno
+                </label>
+            </div>
+    
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="professorRadio" id="professor" value="1">
+                <label class="form-check-label" for="professor">
+                    Professor
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="idade">Idade</label>
+            <input type="number" class="form-control" id="idade" aria-describedby="idadeHelp"
+                placeholder="Ex: 18">
+            <small id="idadeHelp" class="form-text text-muted">Insira sua idade.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="formacao">Formação</label>
+            <input type="text" class="form-control" id="formacao" aria-describedby="formacaoHelp"
+                placeholder="Ex: 18">
+            <small id="formacaoHelp" class="form-text text-muted">Insira sua área de formação.</small>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary">Criar conta</button>
+    </form>
+</div>
