@@ -11,5 +11,15 @@
         </li>
       </ul>
     </div>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item text-left">
+          <a class="nav-link">{{ usuario?.nome }}</a>
+          <small *ngIf="usuario?.tipo === 1; else aluno">Professor</small>
+          <ng-template #aluno><small>Aluno</small></ng-template>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

@@ -18,6 +18,8 @@ import { LoginComponent } from './pages/public/login/login.component';
 import { PaginaNaoEncontradaComponent } from './pages/public/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { MensagemErroComponent } from './components/mensagem-erro/mensagem-erro.component';
 import { MensagemSucessoComponent } from './components/mensagem-sucesso/mensagem-sucesso.component';
+import { CardComponent } from './components/card/card.component';
+import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwttoken');
@@ -34,6 +36,8 @@ export function tokenGetter() {
     HeaderComponent,
     MensagemErroComponent,
     MensagemSucessoComponent,
+    CardComponent,
+    ListaCursosComponent,
   ],
   imports: [
     BrowserModule,

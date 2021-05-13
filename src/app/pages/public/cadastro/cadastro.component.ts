@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Aluno } from 'src/app/models/aluno';
@@ -31,12 +31,12 @@ export class CadastroComponent implements OnInit {
     private opcoesFormService: OpcoesFormService,
     private cadastroService: CadastroService,
     private router: Router) { }
-
-  ngOnInit(): void {
-    this.opcoesPerfil = this.opcoesFormService.getPerfis();
-    this.cadastroForm.get('idade').disable();
-    this.cadastroForm.get('formacao').disable();
-  }
+    
+    ngOnInit(): void {
+      this.opcoesPerfil = this.opcoesFormService.getPerfis();
+      this.cadastroForm.get('idade').disable();
+      this.cadastroForm.get('formacao').disable();
+    }
 
   cadastrar() {
     if (this.cadastroForm.get('perfil').value == '1') {
