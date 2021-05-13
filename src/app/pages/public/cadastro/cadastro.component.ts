@@ -1,5 +1,9 @@
 import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Aluno } from 'src/app/models/aluno';
+import { Professor } from 'src/app/models/professor';
+import { CadastroService } from 'src/app/services/cadastro.service';
 import { EmailDisponivelValidatorService } from 'src/app/services/email-disponivel.validator.service';
 import { OpcoesFormService } from 'src/app/services/opcoes-form.service.';
 import { apenasLetrasValidation, vazioValidation } from '../../../utils/validators/input-nome.validator';
@@ -24,7 +28,9 @@ export class CadastroComponent implements OnInit {
 
   constructor(
     private emailDisponivelValidatorService: EmailDisponivelValidatorService,
-    private opcoesFormService: OpcoesFormService) { }
+    private opcoesFormService: OpcoesFormService,
+    private cadastroService: CadastroService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.opcoesPerfil = this.opcoesFormService.getPerfis();
@@ -33,7 +39,21 @@ export class CadastroComponent implements OnInit {
   }
 
   cadastrar() {
-    //implementar
+    if (this.cadastroForm.get('perfil').value == '1') {
+      const professor = this.cadastroForm.getRawValue() as Professor;
+      this.cadastroService
+        .cadastrarProfessor(professor)
+        .subscribe(() => this.router.navigate(['']),
+        erro => console.log(erro)
+        );
+    } else if (this.cadastroForm.get('perfil').value == '2') {
+      const aluno = this.cadastroForm.getRawValue() as Aluno;
+      this.cadastroService
+        .cadastrarAluno(aluno)
+        .subscribe(() => this.router.navigate(['']),
+        erro => console.log(erro)
+        );
+    }
   }
 
   alterarPerfilFormulario(perfilId: string) {
