@@ -20,6 +20,7 @@ import { MensagemErroComponent } from './components/mensagem-erro/mensagem-erro.
 import { MensagemSucessoComponent } from './components/mensagem-sucesso/mensagem-sucesso.component';
 import { CardComponent } from './components/card/card.component';
 import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
+import { PerfilAlunoComponent } from './pages/private/aluno/perfil-aluno/perfil-aluno.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwttoken');
@@ -38,6 +39,7 @@ export function tokenGetter() {
     MensagemSucessoComponent,
     CardComponent,
     ListaCursosComponent,
+    PerfilAlunoComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,9 @@
-<div class="container">
+<h2>Cursos cadastrados na plataforma: </h2>
+<div class="container mt-3">
     <div class="row">
-      <div class="col-sm">
-        One of three columns
-      </div>
-      <div class="col-sm">
-        One of three columns
-      </div>
-      <div class="col-sm">
-        One of three columns
-      </div>
+        <div class="col-sm" *ngFor="let curso of cursos">
+            <app-card imgSrc="../../assets/img/book.svg" alt="ícone de livro representando um curso"
+                [titulo]="curso.nome" [desc]="curso.descricao"></app-card>
+        </div>
     </div>
-  </div>
+</div>

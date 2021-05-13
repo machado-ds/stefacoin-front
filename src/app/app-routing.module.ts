@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListaCursosResolver } from './components/lista-cursos/lista-cursos.resolver';
 import { AuthGuardService } from './guards/auth-guard.service';
+import { PerfilAlunoComponent } from './pages/private/aluno/perfil-aluno/perfil-aluno.component';
 import { HomeComponent } from './pages/private/home/home.component';
 import { CadastroComponent } from './pages/public/cadastro/cadastro.component';
 import { LoginComponent } from './pages/public/login/login.component';
@@ -11,6 +13,9 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuardService],
     component: HomeComponent,
+    resolve: {
+      cursos: ListaCursosResolver
+    }
   },
   {
     path: 'nova-conta',
@@ -21,8 +26,19 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: '**',
+    path: 'aluno/:alunoId',
+    component: PerfilAlunoComponent
+  },
+  {
+    path: 'nao-encontrado',
     component: PaginaNaoEncontradaComponent,
+    data: {
+      title: 'Não Encontrado'
+    }
+  },
+  {
+    path: '**',
+    redirectTo: 'nao-encontrado'
   },
 ];
 
@@ -30,4 +46,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
