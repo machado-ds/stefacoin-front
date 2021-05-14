@@ -1,0 +1,19 @@
+<div class="container" *ngIf="(curso$ | async) as curso">
+    <h2>{{ curso.nome }}</h2>
+    <p>{{ curso.descricao }}</p>
+    <h3>Aulas:</h3>
+
+    <div class="list-group mt-3" *ngFor="let aula of curso.aulas">
+        <a [routerLink]="['aula', aula.id]" href=""
+            class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ aula.nome }}</h5>
+            </div>
+            <p class="mb-1">{{ aula.descricao }}</p>
+            <small>{{ aula.duracao }} min.</small>
+        </a>
+    </div>
+
+    <button *ngIf="usuario == 2 && !alunoMatriculadoEmCurso" class="btn btn-primary mt-3" (click)="matricula()">Matricular-se</button>
+
+    <button *ngIf="usuario == 2 && alunoMatriculadoEmCurso" class="btn btn-danger mt-3" (click)="cancelaMatricula()">Cancelar matrícula</button>

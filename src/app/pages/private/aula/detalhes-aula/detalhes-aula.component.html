@@ -1,0 +1,9 @@
+
+<div class="container mt-3">
+    <h2>{{ aula.nome }}</h2>
+    <img src="../../../../../assets/img/video-placeholder.jpeg" alt="Imagem representando um player de vídeo.">
+    <h3>Tópicos: </h3>
+    <ul>
+        <li *ngFor="let topico of aula.topicos">{{ topico }}</li>
+    </ul>
+</div>

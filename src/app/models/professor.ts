@@ -1,5 +1,5 @@
-export interface Professor {
-    nome: string;
-    email: string;
-    senha: string;
+import { Usuario } from './usuario';
+
+export interface Professor extends Usuario {
+   
 }

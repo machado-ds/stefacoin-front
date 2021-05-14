@@ -14,4 +14,8 @@ export class AlunoService {
     getAlunoById(idAluno: number) {
         return this.http.get<Aluno>(API + '/stefanini/alunos/' + idAluno);
     }
+
+    checaAlunoMatriculadoEmCurso(idAluno: number, idCurso: number) {
+        
+    }
 }

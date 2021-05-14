@@ -21,6 +21,9 @@ import { MensagemSucessoComponent } from './components/mensagem-sucesso/mensagem
 import { CardComponent } from './components/card/card.component';
 import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
 import { PerfilAlunoComponent } from './pages/private/aluno/perfil-aluno/perfil-aluno.component';
+import { PerfilProfessorComponent } from './pages/private/professor/perfil-professor/perfil-professor.component';
+import { DetalhesCursoComponent } from './pages/private/curso/detalhes-curso/detalhes-curso.component';
+import { DetalhesAulaComponent } from './pages/private/aula/detalhes-aula/detalhes-aula.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwttoken');
@@ -40,6 +43,9 @@ export function tokenGetter() {
     CardComponent,
     ListaCursosComponent,
     PerfilAlunoComponent,
+    PerfilProfessorComponent,
+    DetalhesCursoComponent,
+    DetalhesAulaComponent,
   ],
   imports: [
     BrowserModule,
