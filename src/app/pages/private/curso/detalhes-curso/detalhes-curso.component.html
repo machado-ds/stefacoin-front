@@ -20,5 +20,9 @@
     <button *ngIf="usuario == 2 && !alunoMatriculadoEmCurso" class="btn btn-primary mt-3" (click)="matricula()">Matricular-se</button>
 
     <button *ngIf="usuario == 2 && alunoMatriculadoEmCurso" class="btn btn-danger mt-3" (click)="cancelaMatricula()">Cancelar matrícula</button>
+    
+    <a [routerLink]="['editar']"><button *ngIf="usuario == 1" class="btn btn-secondary mt-3 ml-3">Editar Curso</button></a>
+
+    <button *ngIf="usuario == 1" class="btn btn-danger mt-3 ml-3" (click)="excluirCurso()">Excluir Curso</button>
 
     <a [routerLink]="['avaliar']"><button *ngIf="usuario == 2" class="btn btn-secondary mt-3 ml-3">Avaliar Curso</button></a>

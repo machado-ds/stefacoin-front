@@ -88,4 +88,11 @@ export class DetalhesCursoComponent implements OnInit, OnChanges {
       }, erro => console.log(erro)
       )
   }
+
+  excluirCurso() {
+    this.cursoService.excluirCurso(this.cursoId).subscribe((mensagem) => {
+      this.toastr.success(mensagem.mensagem);
+      this.router.navigate(['']);
+    })
+  }
 }

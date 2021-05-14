@@ -7,6 +7,7 @@ import { PerfilAlunoComponent } from './pages/private/aluno/perfil-aluno/perfil-
 import { DetalhesAulaComponent } from './pages/private/aula/detalhes-aula/detalhes-aula.component';
 import { AvaliaCursoComponent } from './pages/private/curso/avalia-curso/avalia-curso.component';
 import { DetalhesCursoComponent } from './pages/private/curso/detalhes-curso/detalhes-curso.component';
+import { EditaCursoComponent } from './pages/private/curso/edita-curso/edita-curso.component';
 import { NovoCursoComponent } from './pages/private/curso/novo-curso/novo-curso.component';
 import { HomeComponent } from './pages/private/home/home.component';
 import { PerfilProfessorComponent } from './pages/private/professor/perfil-professor/perfil-professor.component';
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'curso/:cursoId/avaliar',
     component: AvaliaCursoComponent
+  },
+  {
+    path: 'curso/:cursoId/editar',
+    component: EditaCursoComponent
   },
   {
     path: 'curso/:cursoId/aula/:aulaId',

@@ -19,6 +19,10 @@ export class CursoService {
     return this.http.post<Mensagem>(API + '/stefanini/cursos', curso);
   }
 
+  editaCurso(cursoId: number, curso: Curso): Observable<Mensagem> {
+    return this.http.put<Mensagem>(API + '/stefanini/cursos/' + cursoId, curso);
+  }
+
   getCursos() {
     return this.http.get<Curso[]>(API + '/stefanini/cursos');
   }
@@ -48,5 +52,9 @@ export class CursoService {
 
   checarNomeCursoDisponivel(nomeCurso: string) {
     return this.http.post(API + '/stefanini/cursos/nome-disponivel', { nomeCurso });
+  }
+
+  excluirCurso(cursoId: number): Observable<Mensagem> {
+    return this.http.delete<Mensagem>(API + '/stefanini/cursos/' + cursoId);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Aula } from 'src/app/models/aula';
@@ -12,41 +12,56 @@ import { ProfessorService } from 'src/app/services/professor.service';
 import { apenasLetrasValidation, vazioValidation } from 'src/app/utils/validators/input-nome.validator';
 
 @Component({
-  selector: 'app-novo-curso',
-  templateUrl: './novo-curso.component.html',
-  styleUrls: ['./novo-curso.component.css']
+  selector: 'app-edita-curso',
+  templateUrl: './edita-curso.component.html',
+  styleUrls: ['./edita-curso.component.css']
 })
-export class NovoCursoComponent implements OnInit {
+export class EditaCursoComponent implements OnInit {
 
   listaDeProfessores$: Observable<Professor[]>;
-  novoCursoForm: FormGroup = new FormGroup({
+  editaCursoForm: FormGroup = new FormGroup({
     nome: new FormControl('', [Validators.required, vazioValidation], this.nomeCursoDisponivelValidatorService.checarNomeCursoDisponivel()),
     descricao: new FormControl('', Validators.required),
     idProfessor: new FormControl('', Validators.required),
     aulas: new FormGroup({
-      nome: new FormControl('', Validators.required),
-      duracao: new FormControl('', Validators.required),
-      topicos: new FormControl('', Validators.required)
+      nome: new FormControl(''),
+      duracao: new FormControl(''),
+      topicos: new FormControl('')
     })
   })
 
   aulasInclusas: any[] = [];
   mensagemErroNome: string;
+  curso$: Observable<Curso>;
+  cursoId: number;
 
   constructor(
     private professorService: ProfessorService,
     private nomeCursoDisponivelValidatorService: NomeCursoDisponivelValidatorService,
     private cursoService: CursoService,
     private toastrService: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.listaDeProfessores$ = this.professorService.listar();
+    this.curso$ = this.cursoService.getCursoById(this.activatedRoute.snapshot.params.cursoId);
+    this.cursoId = this.activatedRoute.snapshot.params.cursoId;
+    this.curso$.subscribe((curso) => {
+      curso.aulas.forEach(aula => {
+        this.aulasInclusas.push(aula);
+      })
+      this.editaCursoForm.get('nome').patchValue(curso.nome);
+      this.editaCursoForm.get('descricao').patchValue(curso.descricao);
+      this.editaCursoForm.get('idProfessor').patchValue(curso.idProfessor);
+    }, erro => {
+      console.log(erro.message);
+    })
   }
 
   incluirAula() {
     this.mensagemErroNome = undefined;
-    const dadosFormulario = this.novoCursoForm.getRawValue();
+    const dadosFormulario = this.editaCursoForm.getRawValue();
     this.aulasInclusas.forEach(aula => {
       if (aula.nome == dadosFormulario.aulas.nome) {
         this.mensagemErroNome = 'Já existe uma aula com esse nome neste curso. Tente inserir um novo nome.';
@@ -63,30 +78,29 @@ export class NovoCursoComponent implements OnInit {
 
   }
 
-  cadastrarCurso() {
-    let curso = this.novoCursoForm.getRawValue() as Curso;
+  editarCurso() {
+    let curso = this.editaCursoForm.getRawValue() as Curso;
 
     let aulasInclusasComTopicos = this.aulasInclusas.map((aula) => {
       let novaAula = {} as Aula;
       novaAula['nome'] = aula.nome;
       novaAula['duracao'] = aula.duracao;
-      novaAula['topicos'] = aula.topicos.split(';');
+      if (typeof aula.topicos == 'string') {
+        novaAula['topicos'] = aula.topicos.split(';');
+      } else {
+        novaAula['topicos'] = aula.topicos;
+      }
       novaAula['id'] = this.aulasInclusas.indexOf(aula);
-      novaAula['idCurso'] = 0;
+      novaAula['idCurso'] = this.cursoId;
       return novaAula;
     })
 
     curso.aulas = aulasInclusasComTopicos;
     curso.idProfessor = Number(curso.idProfessor);
     
-    this.cursoService.cadastraCurso(curso).subscribe((mensagem) => {
+    this.cursoService.editaCurso(this.cursoId, curso).subscribe((mensagem) => {
       console.log(mensagem.mensagem);
       this.toastrService.success(mensagem.mensagem);
-      curso.aulas.forEach(aula => {
-        aula.idCurso = mensagem.data.id;
-      })
-      this.cursoService.editaCurso(mensagem.data.id, curso).subscribe((mensagem) => console.log(mensagem.mensagem), erro => console.log(erro)
-      )
       this.router.navigate(['']);
     }, erro => {
       console.log(erro);
