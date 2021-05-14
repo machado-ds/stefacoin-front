@@ -4,6 +4,7 @@ import { ListaCursosResolver } from './components/lista-cursos/lista-cursos.reso
 import { AuthGuardService } from './guards/auth-guard.service';
 import { PerfilAlunoComponent } from './pages/private/aluno/perfil-aluno/perfil-aluno.component';
 import { DetalhesAulaComponent } from './pages/private/aula/detalhes-aula/detalhes-aula.component';
+import { AvaliaCursoComponent } from './pages/private/curso/avalia-curso/avalia-curso.component';
 import { DetalhesCursoComponent } from './pages/private/curso/detalhes-curso/detalhes-curso.component';
 import { HomeComponent } from './pages/private/home/home.component';
 import { PerfilProfessorComponent } from './pages/private/professor/perfil-professor/perfil-professor.component';
@@ -39,6 +40,10 @@ const routes: Routes = [
   {
     path: 'curso/:cursoId',
     component: DetalhesCursoComponent
+  },
+  {
+    path: 'curso/:cursoId/avaliar',
+    component: AvaliaCursoComponent
   },
   {
     path: 'curso/:cursoId/aula/:aulaId',

@@ -1,0 +1,9 @@
+<label for="notas">Selecione a nota que deseja dar ao curso: </label>
+<form [formGroup]="avaliacaoForm" (submit)="registrarAvaliacao()">
+    <div class="form-check" id="notas" *ngFor="let nota of notas">
+        <input formControlName="nota" class="form-check-input" type="radio" name="nota" id="{{ nota }}" value="{{ nota }}">
+        <label class="form-check-label" for="{{ nota }}">{{ nota }}</label>
+    </div>
+
+    <button class="btn btn-primary">Confirmar</button>
+</form>

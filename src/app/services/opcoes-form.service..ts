@@ -13,4 +13,8 @@ export class OpcoesFormService {
             {valor: '2', desc: 'Aluno'}
         ]
     }
+
+    getNotas() {
+        return [1, 2, 3, 4, 5];
+    }
 }

@@ -86,5 +86,4 @@ export class DetalhesCursoComponent implements OnInit, OnChanges {
       }, erro => console.log(erro)
       )
   }
-
 }
