@@ -1,7 +1,7 @@
 <div class="container" *ngIf="(curso$ | async) as curso">
     <h2>{{ curso.nome }}</h2>
     <p>{{ curso.descricao }}</p>
-    <aside>Avaliação: {{ curso.avaliacao }}</aside>
+    <aside>Avaliação: {{ mediaAvaliacao | number: '1.0-1' }}</aside>
     
     <div class="mt-3">
         <h3>Aulas:</h3>

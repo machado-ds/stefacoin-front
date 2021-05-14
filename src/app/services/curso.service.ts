@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Avaliacao } from '../models/avaliacao';
 import { Curso } from '../models/curso';
 import { Mensagem } from '../models/mensagem';
 
@@ -31,5 +32,9 @@ export class CursoService {
   cancelarMatricula(alunoId: number, cursoId: number): Observable<Mensagem> {
     console.log('Chamando cancela matricula da service');
     return this.http.put<Mensagem>(`${API}/stefanini/cursos/${cursoId}/cancelarMatricula?alunoId=${alunoId}`, {});
+  }
+
+  registraAvaliacao(cursoId: number, avaliacao: Avaliacao): Observable<Mensagem> {
+    return this.http.put<Mensagem>(`${API}/stefanini/cursos/${cursoId}/avaliar`, avaliacao);
   }
 }

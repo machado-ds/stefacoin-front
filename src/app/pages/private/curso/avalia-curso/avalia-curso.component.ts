@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Avaliacao } from 'src/app/models/avaliacao';
+import { AuthService } from 'src/app/services/auth.service';
+import { CursoService } from 'src/app/services/curso.service';
 import { OpcoesFormService } from 'src/app/services/opcoes-form.service.';
 
 @Component({
@@ -13,16 +18,30 @@ export class AvaliaCursoComponent implements OnInit {
   avaliacaoForm: FormGroup = new FormGroup({
     nota: new FormControl('1', Validators.required)
   });
+  cursoId: number;
+  alunoId: number;
 
-  constructor(private opcoesFormService: OpcoesFormService) { }
+  constructor(
+    private opcoesFormService: OpcoesFormService,
+    private cursoService: CursoService,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.notas = this.opcoesFormService.getNotas();
+    this.cursoId = this.activatedRoute.snapshot.params.cursoId;
+    this.alunoId = this.authService.getUsuario().id;
   }
 
   registrarAvaliacao() {
-    
-    
-  }
-
+      const avaliacao: Avaliacao = { alunoId: this.alunoId, nota: Number(this.avaliacaoForm.get('nota').value)};
+      return this.cursoService.registraAvaliacao(this.cursoId, avaliacao)
+        .subscribe(mensagem => {
+          this.toastr.success(mensagem.mensagem);
+        }, erro => {
+          this.toastr.error(erro.message);
+          console.log(erro);
+        })
+    }
 }
