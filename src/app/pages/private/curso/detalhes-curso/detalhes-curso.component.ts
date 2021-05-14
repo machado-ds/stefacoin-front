@@ -40,19 +40,7 @@ export class DetalhesCursoComponent implements OnInit, OnChanges {
     this.usuario = this.authService.getUsuario().tipo;
     this.cursoId = Number(this.activatedRoute.snapshot.params.cursoId);
     this.curso$ = this.cursoService.getCursoById(this.cursoId);
-    this.curso$.subscribe((curso) => {
-      console.log(curso);
-      console.log(curso.avaliacao);
-      
-      
-      if (curso.avaliacao.length) {
-        let somaDasNotas = 0;
-        curso.avaliacao.forEach(avaliacao => somaDasNotas += avaliacao.nota);
-        this.mediaAvaliacao = somaDasNotas / curso.avaliacao.length;
-      } else {
-        this.mediaAvaliacao = 0;
-      }
-    }, erro => {
+    this.curso$.subscribe((curso) => {}, erro => {
       console.log(erro);
       this.router.navigate(['nao-encontrado']);
     })

@@ -25,6 +25,7 @@ import { PerfilProfessorComponent } from './pages/private/professor/perfil-profe
 import { DetalhesCursoComponent } from './pages/private/curso/detalhes-curso/detalhes-curso.component';
 import { DetalhesAulaComponent } from './pages/private/aula/detalhes-aula/detalhes-aula.component';
 import { AvaliaCursoComponent } from './pages/private/curso/avalia-curso/avalia-curso.component';
+import { NovoCursoComponent } from './pages/private/curso/novo-curso/novo-curso.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwttoken');
@@ -48,6 +49,7 @@ export function tokenGetter() {
     DetalhesCursoComponent,
     DetalhesAulaComponent,
     AvaliaCursoComponent,
+    NovoCursoComponent,
   ],
   imports: [
     BrowserModule,

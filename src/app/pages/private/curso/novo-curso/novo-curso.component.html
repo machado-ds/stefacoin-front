@@ -1,0 +1,72 @@
+<h1>Cadastrar curso</h1>
+
+<form [formGroup]="novoCursoForm" (submit)="cadastrarCurso()">
+    <div class="border border-primary mt-3 mb-3 p-3">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input formControlName="nome" type="text" class="form-control" id="nome" aria-describedby="nomehelp" placeholder="Ex: Angular">
+            
+            <app-mensagem-erro *ngIf="novoCursoForm.get('nome').errors?.required" texto="O nome é obrigatório."></app-mensagem-erro>
+
+            <app-mensagem-erro *ngIf="novoCursoForm.get('nome').errors?.vazio" texto="O nome não pode conter apenas espaços."></app-mensagem-erro>
+
+            <app-mensagem-erro
+            *ngIf="!novoCursoForm.get('nome').errors?.vazio && novoCursoForm.get('nome').errors?.nomeCursoIndisponivel"
+            texto="O nome do curso informado já existe no sistema. Por favor, informe um novo nome."></app-mensagem-erro>
+            <small id="emailHelp" class="form-text text-muted">Insira o nome do curso.</small>
+        </div>
+        <div class="form-group">
+            <label for="desc">Descricao</label>
+            <textarea formControlName="descricao" class="form-control" id="senha" placeholder="Angular é um framework front-end..."></textarea>
+            <app-mensagem-erro *ngIf="novoCursoForm.get('descricao').errors?.required" texto="A descrição é obrigatória."></app-mensagem-erro>
+        </div>
+        <div class="form-group">
+            <label for="professor">Professor</label>
+            <select formControlName="idProfessor" *ngIf="(listaDeProfessores$ | async) as professores" class="form-control" id="professor">
+                <option  value="{{ professor.id }}"*ngFor="let professor of professores">{{ professor.id}}: {{ professor.nome }}</option>
+            </select>
+            <app-mensagem-erro *ngIf="novoCursoForm.get('idProfessor').errors?.required" texto="O professor é obrigatório."></app-mensagem-erro>
+        </div>
+        <div class="container border border-secondary p-3 mb-3 mt-3" id="aulas">
+            <form [formGroup]="novoCursoForm.get('aulas')">
+                <label for="aulas">Aulas</label>
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input formControlName="nome" type="text" class="form-control" id="nome" aria-describedby="nomehelp" placeholder="Ex: Injeção de Dependências">
+
+                    <app-mensagem-erro *ngIf="novoCursoForm.get('aulas').get('nome').errors?.required" texto="O nome da aula é obrigatório."></app-mensagem-erro>
+
+                    <app-mensagem-erro *ngIf="mensagemErroNome" texto="{{ mensagemErroNome }}"></app-mensagem-erro>
+
+                    <small id="nomeHelp" class="form-text text-muted">Insira o nome da aula.</small>
+                </div>
+                <div class="form-group">
+                    <label for="duracao">Duração</label>
+                    <input formControlName="duracao" class="form-control" type="number" id="duracao" placeholder="10">
+
+                    <app-mensagem-erro *ngIf="novoCursoForm.get('aulas').get('duracao').errors?.required" texto="A duração da aula é obrigatória."></app-mensagem-erro>
+
+                    <small id="duracaoHelp" class="form-text text-muted">Insira a duração da aula em minutos.</small>
+                </div>
+                <div class="form-group">
+                    <label for="topicos">Tópicos</label>
+                    <input formControlName="topicos" type="text" class="form-control" id="topicos" aria-describedby="nomehelp" placeholder="Ex: npm;service;inversão de controle">
+
+                    <app-mensagem-erro *ngIf="novoCursoForm.get('aulas').get('topicos').errors?.required" texto="Os tópicos da aula são obrigatórios."></app-mensagem-erro>
+
+                    <small id="nomeHelp" class="form-text text-muted">Insira os tópicos da aula separados por ponto e vírgula, no seguinte padrão: assunto1;assunto2</small>
+                </div>
+
+                <div class="mb-2" id="aulasInclusas" *ngIf="aulasInclusas.length">
+                    <label for="aulasInclusas">Aulas inclusas no curso</label>
+                    <ul class="list-group">
+                        <li *ngFor="let aula of aulasInclusas" class="list-group-item">{{ aula.nome }}</li>
+                    </ul>
+                </div>
+        
+                <button (click)="incluirAula()" class="btn btn-secondary">Incluir aula</button>
+            </form>
+        </div>
+    </div>
+    <button [disabled]="novoCursoForm.invalid || novoCursoForm.pending" class="btn btn-primary">Cadastrar</button>
+</form>

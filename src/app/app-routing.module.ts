@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListaCursosAlunoMatriculadoResolver } from './components/lista-cursos/lista-cursos-matriculados.resolver';
 import { ListaCursosResolver } from './components/lista-cursos/lista-cursos.resolver';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { PerfilAlunoComponent } from './pages/private/aluno/perfil-aluno/perfil-aluno.component';
 import { DetalhesAulaComponent } from './pages/private/aula/detalhes-aula/detalhes-aula.component';
 import { AvaliaCursoComponent } from './pages/private/curso/avalia-curso/avalia-curso.component';
 import { DetalhesCursoComponent } from './pages/private/curso/detalhes-curso/detalhes-curso.component';
+import { NovoCursoComponent } from './pages/private/curso/novo-curso/novo-curso.component';
 import { HomeComponent } from './pages/private/home/home.component';
 import { PerfilProfessorComponent } from './pages/private/professor/perfil-professor/perfil-professor.component';
 import { CadastroComponent } from './pages/public/cadastro/cadastro.component';
@@ -18,7 +20,8 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     component: HomeComponent,
     resolve: {
-      cursos: ListaCursosResolver
+      cursos: ListaCursosResolver,
+      cursosAluno:  ListaCursosAlunoMatriculadoResolver
     }
   },
   {
@@ -48,6 +51,10 @@ const routes: Routes = [
   {
     path: 'curso/:cursoId/aula/:aulaId',
     component: DetalhesAulaComponent
+  },
+  {
+    path: 'novo-curso',
+    component: NovoCursoComponent
   },
   {
     path: 'nao-encontrado',

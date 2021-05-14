@@ -14,8 +14,8 @@ export class ProfessorService {
   constructor(private http: HttpClient) {}
 
   // #pegabandeira
-  listar(filtro: Partial<Professor>): Observable<Professor[]> {
-    return this.http.get<Professor[]>(API);
+  listar(): Observable<Professor[]> {
+    return this.http.get<Professor[]>(API + '/stefanini/professores');
   }
 
   obter() {}

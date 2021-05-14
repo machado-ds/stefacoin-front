@@ -9,6 +9,7 @@ import { Curso } from 'src/app/models/curso';
 export class ListaCursosComponent implements OnInit {
 
   @Input() cursos: Curso[];
+  @Input() titulo: string;
 
   constructor() { }
 

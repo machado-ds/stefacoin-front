@@ -14,7 +14,9 @@ import { CursoService } from 'src/app/services/curso.service';
 export class HomeComponent implements OnInit {
 
   usuario: Usuario;
+  tipoUsuario: number;
   cursos: Curso[] = [];
+  cursosMatriculados: Curso[] = [];
 
   constructor(
     private authService: AuthService,
@@ -27,6 +29,9 @@ export class HomeComponent implements OnInit {
       this.usuario = this.authService.getUsuario();
     });
 
+    this.tipoUsuario = this.authService.getUsuario().tipo;
+
     this.cursos = this.activatedRoute.snapshot.data['cursos'];
+    this.cursosMatriculados = this.activatedRoute.snapshot.data['cursosAluno'];
   }
 }

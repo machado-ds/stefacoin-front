@@ -15,12 +15,20 @@ export class CursoService {
 
   constructor(private http: HttpClient) { }
 
+  cadastraCurso(curso: Curso): Observable<Mensagem> {
+    return this.http.post<Mensagem>(API + '/stefanini/cursos', curso);
+  }
+
   getCursos() {
     return this.http.get<Curso[]>(API + '/stefanini/cursos');
   }
 
   getCursoById(cursoId: number) {
     return this.http.get<Curso>(API + '/stefanini/cursos/' + cursoId);
+  }
+
+  getCursosAlunoMatriculado(alunoId: number) {
+    return this.http.get<Curso[]>(API + '/stefanini/alunos/' + alunoId + '/cursos');
   }
 
   matricula(alunoId: number, cursoId: number): Observable<Mensagem> {
@@ -36,5 +44,9 @@ export class CursoService {
 
   registraAvaliacao(cursoId: number, avaliacao: Avaliacao): Observable<Mensagem> {
     return this.http.put<Mensagem>(`${API}/stefanini/cursos/${cursoId}/avaliar`, avaliacao);
+  }
+
+  checarNomeCursoDisponivel(nomeCurso: string) {
+    return this.http.post(API + '/stefanini/cursos/nome-disponivel', { nomeCurso });
   }
 }
