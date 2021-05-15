@@ -3,13 +3,13 @@
         <div class="col-sm">
             <label for="nome">Nome</label>
             <h3>{{ aluno.nome }}</h3>
-        
+
             <label for="email">Email</label>
             <h3>{{ aluno.email }}</h3>
-        
+
             <label for="idade">Idade</label>
             <h3>{{ aluno.idade }} anos</h3>
-        
+
             <label for="formacao">Formação</label>
             <h3>{{ aluno.formacao }}</h3>
         </div>
@@ -17,12 +17,12 @@
         <div class="col-sm">
             <label for="cursos">Cursos em que {{ aluno.nome }} está matriculado: </label>
             <ul>
-                <li *ngFor="let curso of aluno.cursos">
-                    <app-card [titulo]="curso.nome"></app-card>
+                <li class="list-unstyled" *ngFor="let curso of cursosDoAluno">
+                    <app-card [titulo]="curso.nome" imgSrc="../../assets/img/book.svg"
+                        alt="ícone de livro representando um curso" [desc]="curso.descricao"></app-card>
                 </li>
             </ul>
         </div>
     </div>
-    
-</div>
 
+</div>

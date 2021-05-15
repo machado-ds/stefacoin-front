@@ -40,7 +40,11 @@ export class DetalhesCursoComponent implements OnInit, OnChanges {
     this.usuario = this.authService.getUsuario().tipo;
     this.cursoId = Number(this.activatedRoute.snapshot.params.cursoId);
     this.curso$ = this.cursoService.getCursoById(this.cursoId);
-    this.curso$.subscribe((curso) => {}, erro => {
+    this.curso$.subscribe((curso) => {
+      let somaDasNotas = 0;
+      curso.avaliacao.forEach(avaliacao => somaDasNotas += avaliacao.nota);
+      this.mediaAvaliacao = somaDasNotas / curso.avaliacao.length;
+    }, erro => {
       console.log(erro);
       this.router.navigate(['nao-encontrado']);
     })
@@ -70,8 +74,6 @@ export class DetalhesCursoComponent implements OnInit, OnChanges {
   }
 
   matricula() {
-    console.log('Chamando matricula()');
-    
     return this.cursoService.matricula(this.alunoId, this.cursoId)
       .subscribe(mensagem => {
         this.toastr.success(mensagem.mensagem);
@@ -93,6 +95,8 @@ export class DetalhesCursoComponent implements OnInit, OnChanges {
     this.cursoService.excluirCurso(this.cursoId).subscribe((mensagem) => {
       this.toastr.success(mensagem.mensagem);
       this.router.navigate(['']);
+    }, erro => {
+      this.toastr.error(erro.error.message);
     })
   }
 }

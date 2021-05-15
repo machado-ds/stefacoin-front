@@ -6,11 +6,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item text-left">
-        <a *ngIf="usuario?.tipo === 1" [routerLink]="['professor/', usuario?.id]" class="nav-link">{{ usuario?.nome }}</a>
-        <a *ngIf="usuario?.tipo === 2" [routerLink]="['aluno/', usuario?.id]" class="nav-link">{{ usuario?.nome }}</a>
-        <small *ngIf="usuario?.tipo === 1">Professor</small>
-        <small *ngIf="usuario?.tipo === 2">Aluno</small>
-        <a href="" class="nav-link" (click)="sair()">Sair</a>
+        <div class="p-2 m-0 border border-dark text-center">
+          <a *ngIf="usuario?.tipo === 1" [routerLink]="['professor/', usuario?.id]" class="nav-link m-0">{{ usuario?.nome }}</a>
+          <a *ngIf="usuario?.tipo === 2" [routerLink]="['aluno/', usuario?.id]" class="nav-link m-0">{{ usuario?.nome }}</a>
+          <small class="m-0" *ngIf="usuario?.tipo === 1">Professor</small>
+          <small class="m-0" *ngIf="usuario?.tipo === 2">Aluno</small>
+          <a href="" class="nav-link m-0" (click)="sair()">Sair</a>
+        </div>
       </li>
     </ul>
   </div>

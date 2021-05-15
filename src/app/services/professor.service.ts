@@ -20,11 +20,9 @@ export class ProfessorService {
 
   obter() {}
 
-  incluir(professor: Professor): Observable<Mensagem> {
-    return this.http.post<Mensagem>(API, professor);
+  alterar(professorId:number, professor: Professor): Observable<Mensagem> {
+    return this.http.put<Mensagem>(API + '/stefanini/professores/' + professorId, professor);
   }
-
-  alterar() {}
 
   excluir() {}
 

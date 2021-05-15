@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Avaliacao } from 'src/app/models/avaliacao';
 import { AuthService } from 'src/app/services/auth.service';
@@ -26,7 +26,8 @@ export class AvaliaCursoComponent implements OnInit {
     private cursoService: CursoService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.notas = this.opcoesFormService.getNotas();
@@ -39,6 +40,7 @@ export class AvaliaCursoComponent implements OnInit {
       return this.cursoService.registraAvaliacao(this.cursoId, avaliacao)
         .subscribe(mensagem => {
           this.toastr.success(mensagem.mensagem);
+          this.router.navigate(['']);
         }, erro => {
           this.toastr.error(erro.message);
           console.log(erro);

@@ -2,5 +2,5 @@
 <app-lista-cursos *ngIf="tipoUsuario == 2" titulo="Cursos em que estou matriculado: " [cursos]="cursosMatriculados"></app-lista-cursos>
 
 <div>
-    <a [routerLink]="['novo-curso']"><button *ngIf="tipoUsuario == 1" class="btn btn-primary">Cadastrar Curso</button></a>
+    <a [routerLink]="['novo-curso']"><button *ngIf="tipoUsuario == 1" class="btn btn-primary mb-4">Cadastrar Curso</button></a>
 </div>

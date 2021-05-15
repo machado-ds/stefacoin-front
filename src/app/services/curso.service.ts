@@ -36,8 +36,6 @@ export class CursoService {
   }
 
   matricula(alunoId: number, cursoId: number): Observable<Mensagem> {
-    console.log('Chamando matricula da service');
-    
     return this.http.put<Mensagem>(`${API}/stefanini/cursos/${cursoId}/matricula?alunoId=${alunoId}`, {});
   }
 

@@ -35,30 +35,37 @@ const routes: Routes = [
   },
   {
     path: 'aluno/:alunoId',
+    canActivate: [AuthGuardService],
     component: PerfilAlunoComponent
   },
   {
     path: 'professor/:professorId',
+    canActivate: [AuthGuardService],
     component: PerfilProfessorComponent
   },
   {
     path: 'curso/:cursoId',
+    canActivate: [AuthGuardService],
     component: DetalhesCursoComponent
   },
   {
     path: 'curso/:cursoId/avaliar',
+    canActivate: [AuthGuardService],
     component: AvaliaCursoComponent
   },
   {
     path: 'curso/:cursoId/editar',
+    canActivate: [AuthGuardService],
     component: EditaCursoComponent
   },
   {
     path: 'curso/:cursoId/aula/:aulaId',
+    canActivate: [AuthGuardService],
     component: DetalhesAulaComponent
   },
   {
     path: 'novo-curso',
+    canActivate: [AuthGuardService],
     component: NovoCursoComponent
   },
   {

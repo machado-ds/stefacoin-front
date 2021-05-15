@@ -19,6 +19,7 @@ import { apenasLetrasValidation, vazioValidation } from 'src/app/utils/validator
 export class NovoCursoComponent implements OnInit {
 
   listaDeProfessores$: Observable<Professor[]>;
+
   novoCursoForm: FormGroup = new FormGroup({
     nome: new FormControl('', [Validators.required, vazioValidation], this.nomeCursoDisponivelValidatorService.checarNomeCursoDisponivel()),
     descricao: new FormControl('', Validators.required),
@@ -32,6 +33,7 @@ export class NovoCursoComponent implements OnInit {
 
   aulasInclusas: any[] = [];
   mensagemErroNome: string;
+  professorDoCurso: Professor;
 
   constructor(
     private professorService: ProfessorService,
@@ -78,6 +80,10 @@ export class NovoCursoComponent implements OnInit {
 
     curso.aulas = aulasInclusasComTopicos;
     curso.idProfessor = Number(curso.idProfessor);
+    this.professorService.getProfessorById(curso.idProfessor).subscribe((professor) => {
+      this.professorDoCurso = professor;
+    });
+    
     
     this.cursoService.cadastraCurso(curso).subscribe((mensagem) => {
       console.log(mensagem.mensagem);
@@ -85,8 +91,17 @@ export class NovoCursoComponent implements OnInit {
       curso.aulas.forEach(aula => {
         aula.idCurso = mensagem.data.id;
       })
+
       this.cursoService.editaCurso(mensagem.data.id, curso).subscribe((mensagem) => console.log(mensagem.mensagem), erro => console.log(erro)
-      )
+      );
+
+      this.professorDoCurso.cursos.push(mensagem.data.id);
+      this.professorService.alterar(curso.idProfessor, this.professorDoCurso).subscribe((mensagem) => {
+        console.log(mensagem.mensagem);
+      }, erro => {
+        console.log(erro.error.message);
+      })
+      
       this.router.navigate(['']);
     }, erro => {
       console.log(erro);

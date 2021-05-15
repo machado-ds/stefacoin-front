@@ -1,1 +1,22 @@
-<p>perfil-professor works!</p>
+<div class="container mt-3" *ngIf="(professor$ | async) as professor">
+    <div class="row">
+        <div class="col-sm">
+            <label for="nome">Nome</label>
+            <h3>{{ professor.nome }}</h3>
+
+            <label for="email">Email</label>
+            <h3>{{ professor.email }}</h3>
+        </div>
+
+        <div class="col-sm">
+            <label for="cursos">Cursos em que {{ professor.nome }} está dando aula: </label>
+            <ul>
+                <li class="list-unstyled" *ngFor="let curso of cursosDoProfessor">
+                    <app-card [titulo]="curso.nome" imgSrc="../../assets/img/book.svg"
+                        alt="ícone de livro representando um curso" [desc]="curso.descricao"></app-card>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
